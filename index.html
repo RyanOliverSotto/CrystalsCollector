@@ -31,13 +31,13 @@
         REM use the import feature for Google Fonts.-->
 </head>
 
-<body>
+<body onload="initiateProject();">
 
     <div class="container">
         <div class="jumbotron">
             <div class="page-header">
                 <h1>Project Management the Game</h1>
-                <h2>Can you deliver your project on time, in scope, and on budget?</h2>
+                <h2>Can you deliver a quality project on time, in scope, and on budget?</h2>
             </div>
         </div>
     </div>
@@ -82,18 +82,22 @@
                                     </div>
                                     <div class="panel-body">
                                         <h3 class="panel-body" id="projectStatus">Status: Project in planning phase.</h3>
-                                        <h3 class="panel-body" id="projectStatus">Successful Projects: 0</h3>
-                                        <h3 class="panel-body" id="projectStatus">Failed Projects: 0</h3>
+                                        <h3 class="panel-body" id="projectSuccess">Successful Projects: 999</h3>
+                                        <h3 class="panel-body" id="projectFails">Failed Projects: 9</h3>
                                     </div>
                             </div>
                     </div>
                     
                     <div class="col-sm-6">
                         <div class="container">
-                                <button type="button" class="btn btn-primary">Complete visibility of resources and project timelines</button>
-                                <button type="button" class="btn btn-success">Allocating the right person for the job</button>
-                                <button type="button" class="btn btn-info">Optimizing the utilization levels of all resources</button>
-                                <button type="button" class="btn btn-warning">Forecasting future resource requirements</button>
+                                <button id="btn0" type="button" class="btn btn-primary btn-block" value=null style="margin-bottom: 40px;">
+                                SCOPE</button>
+                                <button id="btn1" type="button" class="btn btn-success btn-block"value=null style="margin-bottom: 40px;">
+                                TIME</button>
+                                <button id="btn2" type="button" class="btn btn-info btn-block" value=null style="margin-bottom: 40px;">
+                                COST</button>
+                                <button id="btn3" type="button" class="btn btn-warning btn-block" value=null style="margin-bottom:40px;">
+                                QUALITY</button>
                         </div>
                     </div>
             </div>
@@ -108,8 +112,73 @@
 
 
 
-    <script>
-    /* Begin the local javascript here.
+    <script text="text javascript">
+        /* Begin the local javascript here.*/
+        // Declare the global variable here
+        let projectSuccess = 0;
+        let projectFails = 0;
+        let arrayButton = new Array();
+        let projectStarted = false;
+        let projectTarget = 0;
+        let projectExecute = 0;
+
+        /*
+        Populate the target goals with Math Randoms for each of the buttons and set the display to game ready
+        */
+        function initiateProject() {
+            projectExecute = 0;
+            projectTarget = Math.floor(Math.random() * (120 - 19 + 1)) + 19;
+            console.log("Project Target:", projectTarget);
+            $("#projectTarget").text(projectTarget);
+            $("#projectStatus").text("Status: Project not started");
+            $("#projectSuccess").text("Successful Projects: " + projectSuccess);
+            $("#projectFails").text("Failed Projects: " + projectFails);
+            $("#projectExecution").text(projectExecute);
+            $("#btn0").attr("value", parseInt(Math.floor(Math.random() * 12) + 1));
+            $("#btn1").attr("value", parseInt(Math.floor(Math.random() * 12) + 1));
+            $("#btn2").attr("value", parseInt(Math.floor(Math.random() * 12) + 1));
+            $("#btn3").attr("value", parseInt(Math.floor(Math.random() * 12) + 1));
+        }
+
+        $(".btn").on("click", function () {
+            //alert("I was clicked!");
+            projectStarted = true;
+            var myNum = parseInt(this.value);
+            projectExecute+=myNum;
+            console.log ("This.value ", parseInt(this.value));
+            console.log ("myNum ", myNum)
+            //projectScore = parseInt($(this).value) + projectScore;
+            console.log ("Type of PS:", typeof(projectExecute));
+            console.log ("Type of myNum:", typeof(myNum));
+            console.log ("Project Score: ", projectExecute)
+            console.log("myNum:", myNum);
+            //$("#projectExecution").html("<p>"+ projectExecute + "</p>");
+            $("#projectStatus").text("Status: Project is active");
+            //$("#projectExecution").text(this.value);
+            $("#projectExecution").text(projectExecute);
+
+            if (projectExecute === projectTarget){
+                projectClosure();
+            }
+            else if (projectExecute > projectTarget){
+                lessonsLearned();
+
+            }
+
+        });
+        function projectClosure(){
+            projectSuccess++;
+            $("#projectSuccess").text("Successful Projects: " + projectSuccess);            
+            alert("Project success! You were able to deliver a quality project on time, on budget, and within scope! Celebrations!");
+            initiateProject();
+        }
+        function lessonsLearned(){
+            projectFails++;
+            $("#projectFails").text("Failed Projects: 9: " + projectFails);            
+            alert("Project was pulled. Your poor quality budget is over budget, out of scope, and off schedule. Lessons learned!");
+            initiateProject();
+        }
+    /*
     Taken directly from the homework requirements.
     The player will have to guess the answer, just like in Word Guess. This time, though, the player will guess with numbers instead of letters.
     Here's how the app works:
@@ -155,7 +224,8 @@
     If true win or lose condition is met, reset the game but preserve the scores.
 
     End Pseudocode Division
-    ________________________________________________________________________________________________
+    ________________________________________________________________________________________________*/
+
 
 
     </script>
