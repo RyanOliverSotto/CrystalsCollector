@@ -38,6 +38,10 @@ font-family: 'Bungee', cursive;
 
     }
 
+    jumbotron{
+        background-color: cadetblue;
+    }
+
     jumbotron, h1{
         font-family: 'Bungee', sans-serif;
         font-size: 50px;
@@ -74,7 +78,7 @@ font-family: 'Bungee', cursive;
 <body onload="initiateProject();">
 
     <div class="container">
-        <div class="jumbotron">
+        <div class="jumbotron" style="background-color: dodgerblue;">
             <div class="page-header">
                 <h1>Project Management the Game</h1>
                 <h2>Can you deliver a quality project on time, in scope, and on budget?</h2>
@@ -208,15 +212,27 @@ font-family: 'Bungee', cursive;
         function projectClosure(){
             projectSuccess++;
             $("#projectSuccess").text("Successful Projects: " + projectSuccess);            
-            alert("Project success! You were able to deliver a quality project on time, on budget, and within scope! Celebrations!");
+            $("#projectStatus").text("Status: Project is closed.");
+            wait(100);
+            alert("Project success! You were able to deliver a quality project on time, on budget, and within scope! Let's document the lessons learned for what worked well!!");
             initiateProject();
         }
         function lessonsLearned(){
             projectFails++;
-            $("#projectFails").text("Failed Projects: " + projectFails);            
-            alert("Project was pulled. Your poor quality budget is over budget, out of scope, and off schedule. Lessons learned!");
+            $("#projectFails").text("Failed Projects: " + projectFails);     
+            $("#projectStatus").text("Status: Project is closed.");      
+            wait(100);             
+            alert("Project was delivered late, over budget, with poor quality and scope. Let's document the lessons learned so we do better next time!");
             initiateProject();
         }
+
+            function wait(ms) {
+                var start = new Date().getTime();
+                var end = start;
+                while (end < start + ms) {
+                    end = new Date().getTime();
+                }
+}
     /*
     Taken directly from the homework requirements.
     The player will have to guess the answer, just like in Word Guess. This time, though, the player will guess with numbers instead of letters.
